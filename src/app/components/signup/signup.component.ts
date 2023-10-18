@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Users } from 'src/app/models/users';
 import { SignupService } from 'src/app/services/signup.service';
 import { StorageService } from 'src/app/services/storage.service';
 

@@ -46,4 +46,13 @@ export class StorageService {
   getCartProducts():Product[]{
     return JSON.parse(localStorage.getItem('cart') as string)
   }
+  setOrder(): void {
+    localStorage.setItem('orders', JSON.stringify([]));
+  }
+  loadOrderProducts(orders: Product[]): void {
+    localStorage.setItem('orders', JSON.stringify(orders));
+  }
+  getOrderProducts():Product[]{
+    return JSON.parse(localStorage.getItem('orders') as string)
+  }
 }

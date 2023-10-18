@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Product } from 'src/app/models/product';
-import { CartService } from 'src/app/services/cart.service';
+import { HomeService } from 'src/app/services/home.service';
 import { ProductService } from 'src/app/services/product.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -76,7 +76,7 @@ export class HomeComponent {
   constructor(
     private productService: ProductService,
     private storageService: StorageService,
-    private cartService: CartService
+    private homeService:HomeService
   ) {
     this.productService.getAllProducts().subscribe({
       next: (data: Product[]) => {
@@ -91,6 +91,6 @@ export class HomeComponent {
     });
   }
   addToCart(id: number): void {
-    this.cartService.addToCart(id);
+    this.homeService.addToCart(id);
   }
 }

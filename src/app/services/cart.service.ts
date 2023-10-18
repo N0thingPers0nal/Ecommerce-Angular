@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
 import { Product } from '../models/product';
-import { Users } from '../models/users';
+import { OrderService } from './order.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  constructor(private storageService: StorageService) {}
+  constructor(private storageService: StorageService,private orderService:OrderService) {}
   cart: Product[] = [];
   count: number = 0;
   getCount(): number {
@@ -23,7 +23,6 @@ export class CartService {
     return 0;
   }
   addToCart(id: number) {
-    // let updat:Product[]=[]
     let products: Product[] = this.storageService.getProducts();
     let user = this.storageService.loggedInUser();
     if (!this.storageService.getCartProducts()) {
@@ -57,18 +56,19 @@ export class CartService {
     console.log(this.cart);
     let del = products.filter((i) => !(i.id === id && user.id == i.userid));
     this.storageService.loadCartProducts(del);
-
     return del;
   }
 
   checkout():Product[]{
     let cart=this.storageService.getCartProducts();
     let user=this.storageService.loggedInUser()
+    this.orderService.orders(cart.filter((product)=>product.userid==user.id))
     cart=cart.filter((product)=>product.userid!==user.id)
     this.storageService.loadCartProducts(cart)
     return(cart)
-
-
+  }
+  cartProducts():Product[]{
+    return this.storageService.getCartProducts().filter((product)=>this.storageService.loggedInUser().id===product.userid);
   }
 }
 

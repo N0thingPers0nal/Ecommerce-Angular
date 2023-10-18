@@ -16,7 +16,7 @@ export class CartComponent {
     return this.cartService.getCount();
   }
 
-  allCart: Product[] = this.storageService.getCartProducts();
+  allCart: Product[] = this.cartService.cartProducts();
 
   user = this.storageService.loggedInUser();
   // cart: Product[] =this.cartService.userCart(this.allCart);
@@ -24,7 +24,7 @@ export class CartComponent {
   delete(id: number): void {
     this.allCart = this.cartService.delete(id);
   }
-  checkout():void{
-    this.allCart=this.cartService.checkout();
+  checkout(): void {
+    this.allCart = this.cartService.checkout();
   }
 }
