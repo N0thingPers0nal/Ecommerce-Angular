@@ -1,0 +1,133 @@
+<form (ngSubmit)="onSubmit(signup)" #signup="ngForm">
+  <div class="d-flex justify-content-center align-items-center mb-5">
+    <div class="col-5">
+      <div class="card" style="border-radius: 1rem">
+        <div class="d-flex align-items-center">
+          <div class="card-body p-5">
+            <div class="text-center pb-3">
+              <span class="h1">Welcome!</span>
+            </div>
+            <h4
+              class="text-center fw-normal mb-3 pb-3"
+              style="letter-spacing: 1px"
+            >
+              Create your account
+            </h4>
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Name"
+                name="name"
+                [(ngModel)]="curName"
+                ngModel
+                required
+                #name="ngModel"
+                [ngClass]="
+                  name.invalid && (name.dirty || name.touched)
+                    ? 'is-invalid'
+                    : ''
+                "
+              />
+              <div *ngIf="name.errors?.['required']" class="invalid-feedback">
+                Please enter Email
+              </div>
+            </div>
+            <div class="mb-3">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Email address"
+                name="email"
+                [(ngModel)]="curEmail"
+                ngModel
+                required
+                #email="ngModel"
+                pattern="^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$"
+                [ngClass]="
+                  email.invalid && (email.dirty || email.touched)
+                    ? 'is-invalid'
+                    : ''
+                "
+              />
+              <div *ngIf="email.errors?.['required']" class="invalid-feedback">
+                Please enter Email
+              </div>
+
+              <div *ngIf="email.errors?.['pattern']" class="invalid-feedback">
+                Please enter Valide Email
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Password"
+                name="password"
+                [(ngModel)]="curPassword"
+                ngModel
+                required
+                #password="ngModel"
+                minlength="3"
+                [ngClass]="
+                  password.invalid && (password.dirty || password.touched)
+                    ? 'is-invalid'
+                    : ''
+                "
+              />
+              <div
+                *ngIf="password.errors?.['required']"
+                class="invalid-feedback"
+              >
+                Please enter Password
+              </div>
+
+              <div
+                *ngIf="password.errors?.['minlength']"
+                class="invalid-feedback"
+              >
+                Password length must be greater than 3
+              </div>
+            </div>
+            <div class="mb-3">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Confirm Password"
+                name="confirmPassword"
+                minlength="3"
+                ngModel
+                required
+                #confirmPassword="ngModel"
+                [ngClass]="
+                  
+                  confirmPassword.value !== password.value|| confirmPassword.invalid  && confirmPassword.dirty
+                    ? 'is-invalid'
+                    : ''
+                "
+              />
+              
+              <div
+                *ngIf="confirmPassword.value !== password.value"
+                class="invalid-feedback"
+              >
+                Password does not match
+              </div>
+            </div>
+            <!-- {{password.value}},{{confirmPassword.value}} -->
+
+            <div class="d-flex pb-2">
+              <a class="small text-muted" routerLink="/login"
+                >Already have an account?</a
+              >
+            </div>
+            <div class="text-center">
+              <button class="btn btn-outline-success w-100" type="submit" [disabled]="signup.invalid">Signup</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
