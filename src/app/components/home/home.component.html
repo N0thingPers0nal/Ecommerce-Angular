@@ -205,16 +205,16 @@
       <div class="card-body pt-2">
         <h5 class="card-title">{{product.title}}</h5>
         <h5 class="card-title">₹{{product.price}}</h5>
-        <div class="d-flex">
+        <div class="text-center">
           <a (click)="addToCart(product.id)" class="btn btn-warning" style="width: 110px"
             >Add to Cart</a
           >
-          <a
+          <!-- <a
             routerLink="orders"
             class="btn btn-success ms-3"
             style="width: 90px"
             >Buy</a
-          >
+          > -->
         </div>
       </div>
     </div>
