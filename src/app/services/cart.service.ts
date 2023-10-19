@@ -7,7 +7,10 @@ import { OrderService } from './order.service';
   providedIn: 'root',
 })
 export class CartService {
-  constructor(private storageService: StorageService,private orderService:OrderService) {}
+  constructor(
+    private storageService: StorageService,
+    private orderService: OrderService
+  ) {}
   cart: Product[] = [];
   count: number = 0;
   getCount(): number {
@@ -59,16 +62,21 @@ export class CartService {
     return del;
   }
 
-  checkout():Product[]{
-    let cart=this.storageService.getCartProducts();
-    let user=this.storageService.loggedInUser()
-    this.orderService.orders(cart.filter((product)=>product.userid==user.id))
-    cart=cart.filter((product)=>product.userid!==user.id)
-    this.storageService.loadCartProducts(cart)
-    return(cart)
+  checkout(): Product[] {
+    let cart = this.storageService.getCartProducts();
+    let user = this.storageService.loggedInUser();
+    this.orderService.orders(
+      cart.filter((product) => product.userid == user.id)
+    );
+    cart = cart.filter((product) => product.userid !== user.id);
+    this.storageService.loadCartProducts(cart);
+    return cart;
   }
-  cartProducts():Product[]{
-    return this.storageService.getCartProducts().filter((product)=>this.storageService.loggedInUser().id===product.userid);
+  cartProducts(): Product[] {
+    return this.storageService
+      .getCartProducts()
+      .filter(
+        (product) => this.storageService.loggedInUser().id === product.userid
+      );
   }
 }
-

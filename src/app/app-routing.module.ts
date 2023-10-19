@@ -7,9 +7,11 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { authGuard } from './common/auth.guard';
+import { GuideComponent } from './components/guide/guide.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  {path:"",component:GuideComponent},
+  { path: 'home', component: HomeComponent },
   { path: 'cart', component: CartComponent ,canActivate:[authGuard]},
   { path: 'orders', component: OrdersComponent },
   { path: 'login', component: LoginComponent },

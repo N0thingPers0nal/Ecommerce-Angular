@@ -14,7 +14,7 @@ export class LoginComponent {
     // console.log(login.form);
     if (this.authService.userValidate(login.value)) {
       
-      this.router.navigate([''], { replaceUrl: true });
+      this.router.navigate(['home'], { replaceUrl: true });
     } else {
       this.error = 'Invalid Email or Password';
     }

@@ -64,13 +64,11 @@
   </div>
 </div>
 <div class="text-center" *ngIf="allCart.length != 0">
-  <button class="btn btn-success" (click)="checkout()">
-    Checkout
-  </button>
+  <button class="btn btn-success" (click)="checkout()">Checkout</button>
 </div>
 <div class="text-center" *ngIf="allCart.length == 0">
   <p>No items in Cart</p>
-  <p class="btn btn-warning border">Continue Shopping</p><br>
+  <p><a class="btn btn-warning border" routerLink="/home">Continue Shopping</a></p>  
   <button class="btn btn-success disabled" (click)="checkout()">
     Checkout
   </button>

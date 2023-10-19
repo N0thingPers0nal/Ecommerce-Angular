@@ -12,7 +12,7 @@ export class OrdersComponent {
     private storageService: StorageService,
     private orderService: OrderService
   ) {}
-
+ 
   allOrders: Product[] = this.storageService.getOrderProducts();
   count = this.orderService.getCount();
 }

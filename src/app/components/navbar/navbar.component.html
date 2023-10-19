@@ -1,17 +1,17 @@
-<nav class="navbar navbar-expand-lg bg-secondary-subtle px-2">
+<nav class="navbar navbar-expand-lg bg-secondary-subtle px-2" *ngIf="navBar()">
   <div class="container-fluid">
-    <div><a class="navbar-brand" routerLink="">Shop Anywhere</a></div>
+    <div><a class="navbar-brand" routerLink="home">Shop Anywhere</a></div>
     <div
       class="collapse navbar-collapse d-flex justify-content-end"
       id="navbarNav"
     >
-    <!-- if user logged in -->
-      <ul class="navbar-nav" *ngIf="user()">
+       <!-- if user logged in -->
+       <ul class="navbar-nav" *ngIf="user()">
         <li class="nav-item">
           <a
             class="nav-link active"
             aria-current="page"
-            routerLink=""
+            routerLink="home"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
             >Home</a
@@ -19,9 +19,8 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="cart" routerLinkActive="active"
-            >Cart{{getCartCount()>0? "-"+getCartCount():""}}</a
+            >Cart{{ getCartCount() > 0 ? "-" + getCartCount() : "" }}</a
           >
-          
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="orders" routerLinkActive="active"
@@ -38,7 +37,7 @@
           <a
             class="nav-link active"
             aria-current="page"
-            routerLink=""
+            routerLink="home"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
             >Home</a
@@ -48,8 +47,6 @@
           <a class="btn btn-danger" routerLink="login">Login</a>
         </li>
       </ul>
-
-
     </div>
   </div>
 </nav>
