@@ -31,7 +31,7 @@
       </div>
       <!-- Cart products for loop -->
       <div *ngFor="let product of allCart">
-        <div class="row d-flex justify-content-around align-items-center">
+        <div class="row d-flex justify-content-around align-items-center" *ngIf="getProductCount(product.id)>0">
           <div class="col-1">
             <img
               src="{{ product.image }}"
@@ -49,10 +49,10 @@
             <h6 class="m-0">₹{{ product.count! * product.price }}</h6>
           </div>
 
-          <div class="col-2 d-flex">
-            <!-- <button class="btn btn-warning">-</button> -->
-            <!-- <button class="btn btn-success" (click)="order(product.id)">Buy</button> -->
-            <!-- <button class="btn btn-warning">+</button> -->
+          <div class="col-2 d-flex align-items-center">
+            <button class="btn btn-warning" (click)="addToCart(product.id,'-')">-</button>
+            <div class="btn">{{product.count}}</div>
+            <button class="btn btn-warning" (click)="addToCart(product.id,'+')">+</button>
             <button class="btn btn-danger ms-2" (click)="delete(product.id)">
               Delete
             </button>
@@ -63,10 +63,10 @@
     </div>
   </div>
 </div>
-<div class="text-center" *ngIf="allCart.length != 0">
+<div class="text-center" *ngIf="getCartCount()!= 0">
   <button class="btn btn-success" (click)="checkout()">Checkout</button>
 </div>
-<div class="text-center" *ngIf="allCart.length == 0">
+<div class="text-center" *ngIf="getCartCount() <= 0">
   <p>No items in Cart</p>
   <p><a class="btn btn-warning border" routerLink="/home">Continue Shopping</a></p>  
   <button class="btn btn-success disabled" (click)="checkout()">

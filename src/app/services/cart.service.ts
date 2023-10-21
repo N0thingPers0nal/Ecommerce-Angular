@@ -10,9 +10,12 @@ export class CartService {
   constructor(
     private storageService: StorageService,
     private orderService: OrderService
-  ) {}
+  ) {
+    if(!storageService.getCartProducts()){this.storageService.setCart();}
+  }
   cart: Product[] = [];
   count: number = 0;
+
   getCount(): number {
     let count = 0;
     let user = this.storageService.loggedInUser();
@@ -25,14 +28,10 @@ export class CartService {
     }
     return 0;
   }
-  addToCart(id: number) {
+  addToCart(id: number, operator = '+') {
     let products: Product[] = this.storageService.getProducts();
     let user = this.storageService.loggedInUser();
-    if (!this.storageService.getCartProducts()) {
-      this.storageService.setCart();
-    }
     let cart: Product[] = this.storageService.getCartProducts();
-    // console.log(user.id);
     let clickedProduct = products.find((product) => product.id === id);
     if (clickedProduct) {
       let newCart = cart.find(
@@ -43,7 +42,13 @@ export class CartService {
       } else {
         cart = cart.map((item) => {
           if (item.id === id && item.userid === user.id) {
-            return { ...item, count: item.count! + 1 };
+            {
+              if (operator == '+') {
+                return { ...item, count: item.count! + 1 };
+              } else {
+                return { ...item, count: item.count! - 1 };
+              }
+            }
           } else {
             return item;
           }
@@ -56,7 +61,6 @@ export class CartService {
   delete(id: number): Product[] {
     let user = this.storageService.loggedInUser();
     let products = this.storageService.getCartProducts();
-    console.log(this.cart);
     let del = products.filter((i) => !(i.id === id && user.id == i.userid));
     this.storageService.loadCartProducts(del);
     return del;
@@ -72,11 +76,22 @@ export class CartService {
     this.storageService.loadCartProducts(cart);
     return cart;
   }
+
   cartProducts(): Product[] {
     return this.storageService
       .getCartProducts()
       .filter(
         (product) => this.storageService.loggedInUser().id === product.userid
       );
+  }
+  getProductCount(id: number): number {
+    let userProducts = this.cartProducts();
+    let count = userProducts.filter((p) => p.id == id)[0]?.count;
+    if (count) {
+      return count;
+    } else {
+      this.delete(id);
+      return 0;
+    }
   }
 }

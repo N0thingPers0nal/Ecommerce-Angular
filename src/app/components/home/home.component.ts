@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { count } from 'rxjs';
 import { Product } from 'src/app/models/product';
 import { HomeService } from 'src/app/services/home.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -10,6 +12,7 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class HomeComponent {
   products: Product[] = [];
+  count = 0;
   // productShirts:Product["shirts"][] = [{
   //   id: 1,
   //   name: 'Cotton Shirt',
@@ -76,7 +79,8 @@ export class HomeComponent {
   constructor(
     private productService: ProductService,
     private storageService: StorageService,
-    private homeService:HomeService
+    private homeService: HomeService,
+    private router: Router,
   ) {
     this.productService.getAllProducts().subscribe({
       next: (data: Product[]) => {
@@ -90,7 +94,15 @@ export class HomeComponent {
       },
     });
   }
-  addToCart(id: number): void {
-    this.homeService.addToCart(id);
+  addToCart(id: number, operator = '+'): void {
+    this.homeService.addToCart(id, operator);
+  }
+  getProductCount(id: number): number {
+    this.count = this.homeService.getProductCount(id);
+    return this.count;
+  }
+  productDetails(id: number): void {
+    this.productService.productDetails(id);
+    this.router.navigate(['product', id]);
   }
 }

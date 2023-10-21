@@ -32,7 +32,10 @@ export class HomeService {
 
   }
 
-  addToCart(id: number): void {
-    this.cartService.addToCart(id);
+  addToCart(id: number,operator='+'): void {
+    this.cartService.addToCart(id,operator);
+  }
+  getProductCount(id:number):number{
+    return this.cartService.getProductCount(id);
   }
 }

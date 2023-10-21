@@ -34,6 +34,10 @@ export class StorageService {
   getProducts():Product[]{
     return JSON.parse(localStorage.getItem('products') as string)
   }
+  getProduct(id:number):Product{
+    return (JSON.parse(localStorage.getItem('products') as string)).filter((p:Product)=>p.id==id)
+  }
+  
   loggedInUser(): Users {
     return JSON.parse(sessionStorage.getItem('curUsers') as string);
   }

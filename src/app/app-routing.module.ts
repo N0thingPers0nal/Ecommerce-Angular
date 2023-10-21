@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { authGuard } from './common/auth.guard';
 import { GuideComponent } from './components/guide/guide.component';
+import { ProductComponent } from './components/product/product.component';
 
 const routes: Routes = [
   {path:"",component:GuideComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'orders', component: OrdersComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  {path:'product/:id',component:ProductComponent},
   { path: '**', component: NotfoundComponent },
 ];
 
